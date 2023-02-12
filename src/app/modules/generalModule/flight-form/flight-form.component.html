@@ -1,0 +1,48 @@
+<form [formGroup]="flightForm">
+  <div>
+    <label>Origin:</label>
+    <input
+      type="text"
+      formControlName="origin"
+      maxlength="3"
+      toUppercase
+      pattern="[a-zA-Z][a-zA-Z]+"
+    />
+    <div
+      *ngIf="
+        flightForm.get('origin')?.touched &&
+        flightForm.get('origin')?.errors?.['minlength']
+      "
+    >
+      Must have 3 characters
+    </div>
+  </div>
+  <div>
+    <label>Destination:</label>
+    <input
+      type="text"
+      formControlName="destination"
+      maxlength="3"
+      toUppercase
+      pattern="[a-zA-Z][a-zA-Z]+"
+    />
+    <div
+      *ngIf="
+        flightForm.get('destination')?.touched &&
+        flightForm.get('destination')?.errors?.['minlength']
+      "
+    >
+      Must have 3 characters
+    </div>
+  </div>
+  <span
+    *ngIf="
+      flightForm.get('origin')?.touched &&
+      flightForm.get('destination')?.touched &&
+      flightForm.hasError('matchError')
+    "
+  >
+    Origin and destination must be different
+  </span>
+  <button [disabled]="flightForm.invalid">Submit</button>
+</form>

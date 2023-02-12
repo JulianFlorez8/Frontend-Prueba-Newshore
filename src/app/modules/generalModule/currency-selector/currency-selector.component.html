@@ -1,0 +1,9 @@
+<select name="" id="" [(ngModel)]="selectedCurrency" (change)="convert()">
+  <option value="USD">USD</option>
+  <option value="COP">COP</option>
+  <option value="EUR">EUR</option>
+  <option value="GBP">GBP</option>
+</select>
+<span>
+  {{ 1 * currencyRate | currency : selectedCurrency : "symbol" }}
+</span>
