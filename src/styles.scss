@@ -1,39 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "colors.scss";
 
 html {
   font-family: Inter var, "system-ui";
+  background-color: $htmlBgColor;
 }
 
-input,
-select {
+@mixin form-elements {
   display: block;
   min-width: 90%;
   margin: 0.5em;
   padding: 0.5em;
-  width: 35em;
   border-radius: 8px;
   border-style: none;
   border: 1px solid #e4e6e8;
-  transition: 0.1s ease;
+  padding: 10px;
+  font-size: 16px;
 }
 
-input:hover {
-  border-color: palevioletred;
+input,
+select {
+  @include form-elements;
+
+  &:hover {
+    border-color: $formElementsHoverColor;
+  }
 }
 
-button {
+@mixin button-styles {
+  background-color: $buttonBgColor;
+  color: $buttonTextColor;
   justify-content: center;
   align-items: center;
   min-width: 90%;
   border-radius: 8px;
-  border-radius: 8px;
   cursor: pointer;
+  border: none;
+  font-size: 16px;
   font-weight: bold;
   line-height: 1.625;
   padding: 16px 32px;
   text-align: center;
+
+  &[disabled] {
+    background-color: $buttonDisabled;
+    color: $buttonTextColor;
+    cursor: not-allowed;
+  }
+}
+
+button {
+  @include button-styles;
 }
 
 form {
@@ -47,44 +63,14 @@ form {
   box-shadow: 0px 0px 10px #ddd;
 }
 
-h2 {
+h2,
+h3 {
   text-align: center;
 }
 
 label {
   font-weight: bold;
   margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="number"],
-select {
-  padding: 10px;
-  width: 80%;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 16px;
-}
-
-button[disabled] {
-  background-color: $buttonDisabled;
-  color: $buttonTextColor;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  font-size: 16px;
-  cursor: not-allowed;
-}
-
-button:not([disabled]) {
-  background-color: $buttonBgColor;
-  color: $buttonTextColor;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
 }
 
 div {
@@ -95,4 +81,10 @@ span {
   color: $warningTextColor;
   font-size: 14px;
   margin-bottom: 5px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5%;
 }

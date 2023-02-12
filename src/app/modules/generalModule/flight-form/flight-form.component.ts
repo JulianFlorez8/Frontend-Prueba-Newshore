@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 import { JourneyService } from 'src/app/services/journey.service';
@@ -11,6 +11,9 @@ import { JourneyService } from 'src/app/services/journey.service';
 export class FlightFormComponent implements OnInit {
   flightForm!: FormGroup;
   price: number = 0.0;
+  flights: any[] = [];
+  rate: number = 1;
+  currency: string = 'USD';
 
   ngOnInit(): void {
     this.initForm();
@@ -56,7 +59,16 @@ export class FlightFormComponent implements OnInit {
       .postJourney(origin, destination, maxFlights)
       .subscribe((data) => {
         this.price = data.Price;
+        this.flights = data.Flights;
         console.log(data);
       });
+  }
+
+  changeCurrency(newCurrency: string): void {
+    this.currency = newCurrency;
+  }
+
+  changeRate(newRate: number): void {
+    this.rate = newRate;
   }
 }

@@ -1,53 +1,69 @@
-<form [formGroup]="flightForm" (ngSubmit)="searchJourney()">
-  <h2>Journey search</h2>
-  <div>
-    <label>Origin:</label>
-    <input
-      type="text"
-      formControlName="origin"
-      maxlength="3"
-      toUppercase
-      pattern="[a-zA-Z][a-zA-Z]+"
-    />
+<div class="form-container">
+  <form [formGroup]="flightForm" (ngSubmit)="searchJourney()">
+    <h2>Journey Search</h2>
+    <div>
+      <label>Origin:</label>
+      <input
+        type="text"
+        formControlName="origin"
+        maxlength="3"
+        toUppercase
+        pattern="[a-zA-Z][a-zA-Z]+"
+      />
+      <span
+        *ngIf="
+          flightForm.get('origin')?.touched &&
+          flightForm.get('origin')?.errors?.['minlength']
+        "
+      >
+        Must have 3 characters
+      </span>
+    </div>
+    <div>
+      <label>Destination:</label>
+      <input
+        type="text"
+        formControlName="destination"
+        maxlength="3"
+        toUppercase
+        pattern="[a-zA-Z][a-zA-Z]+"
+      />
+      <span
+        *ngIf="
+          flightForm.get('destination')?.touched &&
+          flightForm.get('destination')?.errors?.['minlength']
+        "
+      >
+        Must have 3 characters
+      </span>
+    </div>
+    <div>
+      <label>Max Flights:</label>
+      <input type="number" formControlName="maxFlights" />
+    </div>
     <span
       *ngIf="
         flightForm.get('origin')?.touched &&
-        flightForm.get('origin')?.errors?.['minlength']
-      "
-    >
-      Must have 3 characters
-    </span>
-  </div>
-  <div>
-    <label>Destination:</label>
-    <input
-      type="text"
-      formControlName="destination"
-      maxlength="3"
-      toUppercase
-      pattern="[a-zA-Z][a-zA-Z]+"
-    />
-    <span
-      *ngIf="
         flightForm.get('destination')?.touched &&
-        flightForm.get('destination')?.errors?.['minlength']
+        flightForm.hasError('matchError')
       "
     >
-      Must have 3 characters
+      Origin and destination must be different
     </span>
-  </div>
-  <div>
-    <label>Max Flights:</label>
-    <input type="number" formControlName="maxFlights" />
-  </div>
-  <span
-    *ngIf="
-      flightForm.get('origin')?.touched &&
-      flightForm.get('destination')?.touched &&
-      flightForm.hasError('matchError')
-    "
-  >
-    Origin and destination must be different
-  </span>
-  <button [disabled]="flightForm.invalid">Search</button>
-</form>
+    <button [disabled]="flightForm.invalid">Search</button>
+  </form>
+  <form>
+    <h2>Journey Information</h2>
+    <div>
+      <label>Currency:</label>
+      <currency-selector (newCurrencyRateEvent) = "changeRate($event)" (newSelectedCurrencyEvent) = "changeCurrency($event)"/>
+    </div>
+    <p><strong>Total Price: </strong>{{ price*rate | currency : currency : "symbol" }}</p>
+    <div >
+      <h3>Flights</h3>
+      <ng-container *ngFor="let item of flights">
+        <flight-card [origin] = "item.Origin" [destination]="item.Destination" [price]="item.Price" [currency]="currency" [rate]="rate"/>
+      </ng-container>
+    </div>
+  </form>
+</div>

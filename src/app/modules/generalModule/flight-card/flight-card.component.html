@@ -1,1 +1,10 @@
-<p>flight-card works!</p>
+<div class="card">
+  <div class="card-body">
+    <p><strong>Origin:</strong> {{ origin }}</p>
+    <p><strong>Destination:</strong> {{ destination }}</p>
+    <p>
+      <strong>Flight Price: </strong
+      >{{ price * rate | currency : currency : "symbol" }}
+    </p>
+  </div>
+</div>
