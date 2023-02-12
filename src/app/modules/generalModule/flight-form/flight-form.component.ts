@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
+import { JourneyService } from 'src/app/services/journey.service';
 
 @Component({
-  selector: 'app-flight-form',
+  selector: 'flight-form',
   templateUrl: './flight-form.component.html',
   styleUrls: ['./flight-form.component.scss'],
 })
 export class FlightFormComponent implements OnInit {
   flightForm!: FormGroup;
+  price: number = 0.0;
 
   ngOnInit(): void {
     this.initForm();
   }
+
+  constructor(private journeyService: JourneyService) {}
 
   initForm() {
     this.flightForm = new FormGroup(
@@ -25,6 +29,7 @@ export class FlightFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
         ]),
+        maxFlights: new FormControl(1, [Validators.required]),
       },
       {
         validators: this.matchValidator('origin', 'destination'),
@@ -43,5 +48,15 @@ export class FlightFormComponent implements OnInit {
     };
   }
 
-  searchJourney() {}
+  searchJourney() {
+    let origin = this.flightForm.get('origin')?.value;
+    let destination = this.flightForm.get('destination')?.value;
+    let maxFlights = this.flightForm.get('maxFlights')?.value;
+    this.journeyService
+      .postJourney(origin, destination, maxFlights)
+      .subscribe((data) => {
+        this.price = data.Price;
+        console.log(data);
+      });
+  }
 }

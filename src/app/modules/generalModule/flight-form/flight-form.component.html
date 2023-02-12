@@ -1,4 +1,5 @@
-<form [formGroup]="flightForm">
+<form [formGroup]="flightForm" (ngSubmit)="searchJourney()">
+  <h2>Journey search</h2>
   <div>
     <label>Origin:</label>
     <input
@@ -8,14 +9,14 @@
       toUppercase
       pattern="[a-zA-Z][a-zA-Z]+"
     />
-    <div
+    <span
       *ngIf="
         flightForm.get('origin')?.touched &&
         flightForm.get('origin')?.errors?.['minlength']
       "
     >
       Must have 3 characters
-    </div>
+    </span>
   </div>
   <div>
     <label>Destination:</label>
@@ -26,14 +27,18 @@
       toUppercase
       pattern="[a-zA-Z][a-zA-Z]+"
     />
-    <div
+    <span
       *ngIf="
         flightForm.get('destination')?.touched &&
         flightForm.get('destination')?.errors?.['minlength']
       "
     >
       Must have 3 characters
-    </div>
+    </span>
+  </div>
+  <div>
+    <label>Max Flights:</label>
+    <input type="number" formControlName="maxFlights" />
   </div>
   <span
     *ngIf="
@@ -44,5 +49,5 @@
   >
     Origin and destination must be different
   </span>
-  <button [disabled]="flightForm.invalid">Submit</button>
+  <button [disabled]="flightForm.invalid">Search</button>
 </form>

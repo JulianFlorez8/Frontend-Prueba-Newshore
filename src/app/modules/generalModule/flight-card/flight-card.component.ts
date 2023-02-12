@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-flight-card',
+  selector: 'flight-card',
   templateUrl: './flight-card.component.html',
-  styleUrls: ['./flight-card.component.scss']
+  styleUrls: ['./flight-card.component.scss'],
 })
-export class FlightCardComponent {
-
-}
+export class FlightCardComponent {}

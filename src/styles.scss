@@ -1,1 +1,98 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "colors.scss";
+
+html {
+  font-family: Inter var, "system-ui";
+}
+
+input,
+select {
+  display: block;
+  min-width: 90%;
+  margin: 0.5em;
+  padding: 0.5em;
+  width: 35em;
+  border-radius: 8px;
+  border-style: none;
+  border: 1px solid #e4e6e8;
+  transition: 0.1s ease;
+}
+
+input:hover {
+  border-color: palevioletred;
+}
+
+button {
+  justify-content: center;
+  align-items: center;
+  min-width: 90%;
+  border-radius: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1.625;
+  padding: 16px 32px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: $formColor;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #ddd;
+}
+
+h2 {
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  padding: 10px;
+  width: 80%;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+button[disabled] {
+  background-color: $buttonDisabled;
+  color: $buttonTextColor;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: not-allowed;
+}
+
+button:not([disabled]) {
+  background-color: $buttonBgColor;
+  color: $buttonTextColor;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+span {
+  color: $warningTextColor;
+  font-size: 14px;
+  margin-bottom: 5px;
+}

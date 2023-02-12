@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { JourneyModel } from '../models/Journey.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +11,6 @@ export class CurrencyAPIService {
 
   getCurrency(symbol: string) {
     let url = 'https://api.exchangerate.host/latest?base=USD&symbols=' + symbol;
-    console.log(url);
-
     return this.http.get(url);
   }
 }
