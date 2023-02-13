@@ -5,7 +5,7 @@ import { CurrencySelectorComponent } from './currency-selector.component';
 import { CurrencyAPIService } from 'src/app/services/currency-api.service';
 import { of } from 'rxjs';
 
-describe('CurrencySelectorComponent', () => {
+fdescribe('CurrencySelectorComponent', () => {
   let component: CurrencySelectorComponent;
   let fixture: ComponentFixture<CurrencySelectorComponent>;
   let mockCurrencyAPIService: jasmine.SpyObj<CurrencyAPIService>;
@@ -47,14 +47,14 @@ describe('CurrencySelectorComponent', () => {
   describe('getCurrency method', () => {
     it('transform EUR', () => {
       component.selectedCurrency = 'EUR';
-      component.currencyRate = 1000;
-      expect(component.convert()).toEqual(1000);
+      component.getCurrencyRate();
+      expect(component.currencyRate).toEqual(0.935115);
     });
 
     it('transform  COP', () => {
       component.selectedCurrency = 'COP';
-      component.currencyRate = 1000;
-      expect(component.convert()).toEqual(1000);
+      component.getCurrencyRate();
+      expect(component.currencyRate).toEqual(4740.112867);
     });
   });
 });

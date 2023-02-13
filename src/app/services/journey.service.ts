@@ -9,6 +9,8 @@ import { JourneyModel } from '../models/Journey.model';
 export class JourneyService {
   constructor(private http: HttpClient) {}
 
+  //metodo que envia una petición post a la api del backend
+  //a traves del modulo http de angular inyectado en el constructor de la clase
   postJourney(
     origin: string,
     destination: string,

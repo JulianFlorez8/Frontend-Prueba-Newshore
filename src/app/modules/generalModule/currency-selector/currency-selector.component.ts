@@ -14,7 +14,9 @@ export class CurrencySelectorComponent {
 
   constructor(private currency: CurrencyAPIService) {}
 
-  convert() {
+  //metodo que se suscribe al servicio encargado de consultar la api con las tasas de cambio
+  //despues emite esta información al componente padre
+  getCurrencyRate() {
     this.currency.getCurrency(this.selectedCurrency).subscribe((data: any) => {
       this.currencyRate = data.rates[this.selectedCurrency];
       this.newSelectedCurrencyEvent.emit(this.selectedCurrency);
