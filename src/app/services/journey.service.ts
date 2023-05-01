@@ -1,20 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { JourneyModel } from '../models/Journey.model';
 import { FlightModel } from '../models/Flight.model';
 import { TransportModel } from '../models/Transport.model';
+import { FLIGHTS_API_ENDPOINT } from '../tokens';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JourneyService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(FLIGHTS_API_ENDPOINT) private flightsApiEndpoint: string
+  ) {}
 
   //Metodo que que consume la API y mapea los objetos que devuelve a los modelos definidos en la carpeta models
   getFlights(): Observable<FlightModel[]> {
-    const url = 'https://recruiting-api.newshore.es/api/flights/2';
-    return this.http.get(url).pipe(
+    return this.http.get(this.flightsApiEndpoint).pipe(
       map((response: Object) => {
         const flights: FlightModel[] = [];
         for (const flight of response as any[]) {

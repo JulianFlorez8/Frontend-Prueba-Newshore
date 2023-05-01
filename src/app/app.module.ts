@@ -8,6 +8,8 @@ import { FlightCardComponent } from './modules/generalModule/flight-card/flight-
 import { CurrencySelectorComponent } from './modules/generalModule/currency-selector/currency-selector.component';
 import { ToUppercaseDirective } from './to-uppercase.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { API_ENDPOINTS } from './config';
+import { FLIGHTS_API_ENDPOINT, CURRENCY_API_ENDPOINT } from './tokens';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: FLIGHTS_API_ENDPOINT, useValue: API_ENDPOINTS.flights },
+    { provide: CURRENCY_API_ENDPOINT, useValue: API_ENDPOINTS.currency },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

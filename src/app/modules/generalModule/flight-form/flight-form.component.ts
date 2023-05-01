@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 import { JourneyModel } from 'src/app/models/Journey.model';
@@ -21,7 +28,6 @@ export class FlightFormComponent implements OnInit {
   }
 
   constructor(private journeyService: JourneyService) {}
-
   //metodo que se llama al iniciar el componente con ngOnInit para
   //inicializar el formulario con sus respectivas validaciones
   initForm() {
