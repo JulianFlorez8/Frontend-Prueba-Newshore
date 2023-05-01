@@ -1,6 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { JourneyModel } from '../models/Journey.model';
 import { FlightModel } from '../models/Flight.model';
 import { TransportModel } from '../models/Transport.model';
@@ -34,7 +38,8 @@ export class JourneyService {
           flights.push(newFlight);
         }
         return flights;
-      })
+      }),
+      catchError((err) => of(err))
     );
   }
 
@@ -60,6 +65,7 @@ export class JourneyService {
 
         journey.Flights = flights;
         journey.Price = this.calculateTotalPrice(flights);
+        console.log(journey);
         return journey;
       })
     );

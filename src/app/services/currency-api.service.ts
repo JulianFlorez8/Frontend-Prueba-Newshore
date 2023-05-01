@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JourneyModel } from '../models/Journey.model';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { CURRENCY_API_ENDPOINT } from '../tokens';
 
 @Injectable({
@@ -17,6 +17,6 @@ export class CurrencyAPIService {
   //a traves del get del modulo http de angular inyectado en el constructor de la clase
   getCurrency(symbol: string) {
     let url = this.currencyApiEndpoint + symbol;
-    return this.http.get(url);
+    return this.http.get(url).pipe(catchError((err) => of(err)));
   }
 }
