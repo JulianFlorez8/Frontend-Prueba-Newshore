@@ -8,6 +8,10 @@ import {
 } from '@angular/core';
 import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/app.state';
+import { selectCurrency, selectCurrencyRate } from 'src/app/state/selectors';
 import { JourneyModel } from 'src/app/models/Journey.model';
 import { JourneyService } from 'src/app/services/journey.service';
 
@@ -20,14 +24,20 @@ export class FlightFormComponent implements OnInit {
   flightForm!: FormGroup;
   price: number = 0.0;
   flights: any[] = [];
-  rate: number = 1;
-  currency: string = 'USD';
+  formSubmitted = false;
+  currentCurrency$: Observable<any> = new Observable();
+  currentCurrencyRate$: Observable<any> = new Observable();
 
   ngOnInit(): void {
     this.initForm();
+    this.currentCurrency$ = this.store.select(selectCurrency);
+    this.currentCurrencyRate$ = this.store.select(selectCurrencyRate);
   }
 
-  constructor(private journeyService: JourneyService) {}
+  constructor(
+    private journeyService: JourneyService,
+    private store: Store<AppState>
+  ) {}
   //metodo que se llama al iniciar el componente con ngOnInit para
   //inicializar el formulario con sus respectivas validaciones
   initForm() {
@@ -64,6 +74,7 @@ export class FlightFormComponent implements OnInit {
   //metodo que obtiene los valores a enviar al endpoint de la API a traves de una solicitud POST
   //y se suscribe al servicio encargado de enviarlos
   searchJourney() {
+    this.formSubmitted = true;
     let origin = this.flightForm.get('origin')?.value;
     let destination = this.flightForm.get('destination')?.value;
     let maxFlights = this.flightForm.get('maxFlights')?.value;
@@ -73,17 +84,5 @@ export class FlightFormComponent implements OnInit {
         this.price = journey.Price;
         this.flights = journey.Flights;
       });
-  }
-
-  //metodo que se ejecuta cuando el hijo emite un evento
-  //para actualizar la moneda
-  changeCurrency(newCurrency: string): void {
-    this.currency = newCurrency;
-  }
-
-  //metodo que se ejecuta cuando el hijo emite un evento
-  //para actualizar la tasa de cambio
-  changeRate(newRate: number): void {
-    this.rate = newRate;
   }
 }

@@ -12,6 +12,8 @@ import { API_ENDPOINTS } from './config';
 import { FLIGHTS_API_ENDPOINT, CURRENCY_API_ENDPOINT } from './tokens';
 import { LoadInterceptor } from './interceptors/load-interceptor.interceptor';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { StoreModule } from '@ngrx/store';
+import { journeyReducer } from './state/reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot({ journey: journeyReducer }),
   ],
   providers: [
     { provide: FLIGHTS_API_ENDPOINT, useValue: API_ENDPOINTS.flights },

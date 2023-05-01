@@ -56,14 +56,28 @@
     <h2>Journey Information</h2>
     <div>
       <label>Currency:</label>
-      <currency-selector (newCurrencyRateEvent) = "changeRate($event)" (newSelectedCurrencyEvent) = "changeCurrency($event)"/>
+      <currency-selector />
     </div>
-    <p><strong>Total Price: </strong>{{ price*rate | currency : currency : "symbol" }}</p>
-    <div >
+    <p>
+      <strong>Total Price: </strong
+      >{{
+        price * (currentCurrencyRate$ | async)
+          | currency : (currentCurrency$ | async) : "symbol"
+      }}
+    </p>
+    <div>
       <h3>Flights</h3>
       <ng-container *ngFor="let item of flights">
-        <flight-card [origin] = "item.Origin" [destination]="item.Destination" [price]="item.Price" [currency]="currency" [rate]="rate"/>
+        <flight-card
+          [origin]="item.Origin"
+          [destination]="item.Destination"
+          [price]="item.Price"
+        />
       </ng-container>
+      <span *ngIf="formSubmitted && flights.length == 0">
+        <strong>No Journey available </strong>
+      </span>
+      <p></p>
     </div>
   </form>
 </div>

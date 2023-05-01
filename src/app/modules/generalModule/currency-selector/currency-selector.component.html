@@ -1,11 +1,12 @@
-<select
-  name=""
-  id=""
-  [(ngModel)]="selectedCurrency"
-  (change)="getCurrencyRate()"
->
-  <option value="USD">USD</option>
-  <option value="COP">COP</option>
-  <option value="EUR">EUR</option>
-  <option value="GBP">GBP</option>
-</select>
+<div>
+  <select
+    name=""
+    id=""
+    [(ngModel)]="selectedCurrency"
+    (change)="getCurrencyRate()"
+  >
+    <option *ngFor="let currency of currencies" [value]="currency">
+      {{ currency }}
+    </option>
+  </select>
+</div>
