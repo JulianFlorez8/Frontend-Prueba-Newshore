@@ -8,6 +8,10 @@ export class ToUppercaseDirective {
 
   @HostListener('input', ['$event.target.value'])
   onInput(value: string) {
-    this.el.nativeElement.value = value.toUpperCase();
+    const upperValue = value.toUpperCase();
+    if (this.el.nativeElement.value !== upperValue) {
+      this.el.nativeElement.value = upperValue;
+      this.el.nativeElement.dispatchEvent(new Event('input'));
+    }
   }
 }

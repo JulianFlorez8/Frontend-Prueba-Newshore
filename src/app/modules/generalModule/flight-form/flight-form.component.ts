@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
+import { JourneyModel } from 'src/app/models/Journey.model';
 import { JourneyService } from 'src/app/services/journey.service';
 
 @Component({
@@ -61,10 +62,10 @@ export class FlightFormComponent implements OnInit {
     let destination = this.flightForm.get('destination')?.value;
     let maxFlights = this.flightForm.get('maxFlights')?.value;
     this.journeyService
-      .postJourney(origin, destination, maxFlights)
-      .subscribe((data) => {
-        this.price = data.Price;
-        this.flights = data.Flights;
+      .searchJourney(origin, destination, maxFlights)
+      .subscribe((journey: JourneyModel) => {
+        this.price = journey.Price;
+        this.flights = journey.Flights;
       });
   }
 
